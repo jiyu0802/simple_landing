@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Filter Review - 실패를 줄이는 리뷰 플랫폼</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
 
@@ -332,6 +334,224 @@ footer p{
         font-size:24px;
     }
 }
+
+#map-section{
+    padding:48px 40px 80px;
+    max-width:1400px;
+    margin:auto;
+}
+
+#map-container{
+    display:grid;
+    grid-template-columns:1fr 360px;
+    gap:24px;
+    height:520px;
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid var(--gray-100);
+}
+
+#map{
+    border-radius:16px;
+}
+
+.review-panel{
+    background:#fff;
+    border-radius:16px;
+    border:1px solid var(--gray-100);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+.review-panel-header{
+    padding:20px 24px;
+    border-bottom:1px solid var(--gray-100);
+    background:#fff;
+}
+
+.review-panel-header h3{
+    margin:0;
+    font-size:16px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--gray-900);
+}
+
+.review-panel-tabs{
+    display:flex;
+    padding:12px 16px;
+    gap:6px;
+    border-bottom:1px solid var(--gray-100);
+}
+
+.review-panel-tabs button{
+    padding:8px 14px;
+    background:none;
+    border:none;
+    border-radius:6px;
+    font-size:13px;
+    font-weight:500;
+    color:var(--gray-500);
+    cursor:pointer;
+    transition:all 0.15s;
+}
+
+.review-panel-tabs button.active{
+    background:var(--gray-900);
+    color:#fff;
+}
+
+.review-panel-content{
+    flex:1;
+    overflow-y:auto;
+    padding:16px;
+}
+
+.store-card{
+    padding:16px;
+    background:var(--gray-50);
+    border-radius:12px;
+    margin-bottom:10px;
+    cursor:pointer;
+    transition:all 0.15s;
+    border:1px solid transparent;
+}
+
+.store-card:hover,
+.store-card.active{
+    border-color:var(--primary);
+    background:#fff;
+}
+
+.store-card .store-name{
+    font-size:15px;
+    font-weight:600;
+    margin-bottom:6px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:var(--gray-900);
+}
+
+.store-card .store-name .badge{
+    font-size:10px;
+    padding:2px 6px;
+    background:#ef4444;
+    color:#fff;
+    border-radius:4px;
+    font-weight:600;
+}
+
+.store-card .store-name .badge.good{
+    background:#22c55e;
+}
+
+.store-card .store-meta{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:13px;
+    color:var(--gray-500);
+    margin-bottom:10px;
+}
+
+.store-card .review-preview{
+    font-size:13px;
+    color:var(--gray-700);
+    padding:10px;
+    background:#fff;
+    border-radius:8px;
+    line-height:1.5;
+    border:1px solid var(--gray-100);
+    margin-bottom:8px;
+}
+
+.store-card .reviews-list{
+    margin-top:12px;
+}
+
+.store-card .issues{
+    margin-top:8px;
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+}
+
+.store-card .issue-tag{
+    padding:4px 8px;
+    background:var(--gray-100);
+    color:var(--gray-700);
+    border-radius:4px;
+    font-size:12px;
+    font-weight:500;
+}
+
+.leaflet-control-zoom{
+    border:none !important;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1) !important;
+    border-radius:12px !important;
+    overflow:hidden;
+}
+
+.leaflet-control-zoom a{
+    background:#fff !important;
+    color:var(--black) !important;
+    border:none !important;
+    width:36px !important;
+    height:36px !important;
+    line-height:36px !important;
+}
+
+.custom-marker{
+    z-index:1000 !important;
+}
+
+.popup-content h4{
+    margin:0 0 6px;
+    font-size:14px;
+    font-weight:600;
+    color:var(--gray-900);
+}
+
+.popup-content .popup-rating{
+    color:var(--primary);
+    font-weight:600;
+    margin-bottom:6px;
+    font-size:13px;
+}
+
+.popup-content .popup-issue{
+    display:inline-block;
+    padding:4px 8px;
+    background:var(--gray-100);
+    color:var(--gray-700);
+    border-radius:4px;
+    font-size:12px;
+    margin-top:6px;
+}
+
+.popup-btn{
+    display:block;
+    width:100%;
+    margin-top:10px;
+    padding:8px;
+    background:var(--primary);
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    font-size:13px;
+    font-weight:500;
+    cursor:pointer;
+}
+
+@media (max-width:1024px){
+    #map-container{grid-template-columns:1fr; height:auto;}
+    #map{height:400px;}
+    .review-panel{height:400px;}
+}
 </style>
 </head>
 <body>
@@ -353,6 +573,25 @@ footer p{
     <p>Filter Review는 광고성 후기보다 실제 불만과 솔직한 경험을 먼저 보여줘서, 식당과 공간을 고를 때 더 빠르게 판단할 수 있게 돕는 리뷰 플랫폼입니다.</p>
     <a href="#cta" class="btn">사전 신청</a>
 </header>
+
+<section id="map-section">
+    <div id="map-container">
+        <div id="map"></div>
+        <div class="review-panel">
+            <div class="review-panel-header">
+                <h3><span>⚠️</span> 후일담Pick</h3>
+            </div>
+            <div class="review-panel-tabs">
+                <button class="active">전체</button>
+                <button>위험</button>
+                <button>주의</button>
+                <button>좋음</button>
+            </div>
+            <div class="review-panel-content" id="storeList">
+            </div>
+        </div>
+    </div>
+</section>
 
 <section id="problem">
     <h2>리뷰는 많은데,<br>판단은 더 어려워졌습니다</h2>
@@ -427,6 +666,146 @@ footer p{
 <footer>
     <p>Filter Review - 실패를 줄여주는 리뷰 탐색 플랫폼</p>
 </footer>
+
+<script>
+const map = L.map('map', {
+    zoomControl: false
+}).setView([37.5665, 126.978], 13);
+
+L.control.zoom({position: 'topright'}).addTo(map);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '',
+    subdomains: 'abcd',
+    maxZoom: 19
+}).addTo(map);
+
+const stores = [
+{name: "홍대 본가 닭갈비", lat: 37.5598, lng: 126.9234, rating: 2.5, reviews: 847, issues: ["서비스", "위생"], reviewsList: [
+        "직원이 완전 불친절해요. 다 먹고 나갔는데 영수증도 안 줌.",
+        "위생이 너무 별로임. 주방 보면 배탈 날 듯.",
+        "가게 주인이 손님한테 소리 지름. 두 번 안 감."
+    ], risk: "위험"},
+    {name: "명동 소고기", lat: 37.5642, lng: 126.9749, rating: 3.0, reviews: 15678, issues: ["가격"], reviewsList: [
+        "가격이 너무 비싸요. 같은 가격에 다른 곳에서 훨씬 잘 먹음.",
+        "130g에 28000원... 이 가격에 다른 곳에서 양도 더 많고 맛있음.",
+        "가성비를 기대하면 완전 실망합니다."
+    ], risk: "주의"},
+    {name: "이태원 브런치", lat: 37.5345, lng: 126.9654, rating: 2.0, reviews: 2156, issues: ["맛", "대기"], reviewsList: [
+        "맛이 전혀 없음. 1시간 기다렸는데 이것이냐...",
+        "Egg Benedict 먹었는데 전혀 맛없음.",
+        "분위기만 있고 음식은 그냥 그럼. 다시 안 감."
+    ], risk: "위험"},
+    {name: "강남 고기집", lat: 37.5174, lng: 127.0473, rating: 3.5, reviews: 3420, issues: ["품절"], reviewsList: [
+        "가는데 닭갈비가 품절이라고 함. 사전에 공지 좀 해주세요.",
+        "찍어먹으려고 갔더니 다 품절... 시간 낭비임.",
+        "주문하려고 하면 전 상품 다 품절이었음."
+    ], risk: "주의"},
+    {name: "신촌 치킨", lat: 37.5599, lng: 126.9432, rating: 2.8, reviews: 1856, issues: ["배달"], reviewsList: [
+        "배달이 2시간 걸렸어요. 차가운 치킨 먹음.",
+        "치킨이 차게 온 것처럼 왔음. 다시 주문 안 함.",
+        "배달도 느리고 맛도 별로임. 돈 버림."
+    ], risk: "주의"},
+    {name: "건대 피자", lat: 37.5405, lng: 127.0693, rating: 1.5, reviews: 967, issues: ["위생", "냉방"], reviewsList: [
+        "냉방도 안 되고... 바퀴를 봤어요. 두 번 안 감.",
+        "주방에서 바퀴를 봤음. 위생 정말 않됨.",
+        "피자에서 이물질 발견. 토할 듯."
+    ], risk: "위험"},
+    {name: "홍대路口 커피", lat: 37.5560, lng: 126.9230, rating: 4.5, reviews: 156, issues: [], reviewsList: [
+        "나쁘진 않아요. 그냥 보통임. 주변에 보면 더 좋은 곳 있지만 이 정도면 괜찮음.",
+        "그냥 무난함. 특별할 건 없지만 심각한 문제는 없음.",
+        "가볍게 먹고 싶을 때 괜찮은 선택입니다."
+    ], risk: "좋음"},
+    {name: "신촌 대학생 식당", lat: 37.5595, lng: 126.9430, rating: 4.2, reviews: 89, issues: [], reviewsList: [
+        "그냥 먹을만 함. 특별할 건 없지만 심각한 문제는 없음.",
+        "가격 대비 나쁘지 않음. 근데 이 근처 치고는 그저 그런 수준.",
+        "가성비 good. 또 올 것 같아요."
+    ], risk: "좋음"}
+];
+
+const storeListEl = document.getElementById('storeList');
+
+function renderStoreList(filter = '전체', activeStore = null) {
+    storeListEl.innerHTML = '';
+    const filtered = filter === '전체' ? stores : stores.filter(s => s.risk === filter);
+    
+    filtered.forEach(store => {
+        const card = document.createElement('div');
+        card.className = `store-card ${activeStore === store.name ? 'active' : ''}`;
+        card.innerHTML = `
+            <div class="store-name">
+                ${store.name}
+                ${store.risk === '위험' ? '<span class="badge">위험</span>' : ''}
+                ${store.risk === '좋음' ? '<span class="badge good">좋음</span>' : ''}
+            </div>
+            <div class="store-meta">
+                <span>⭐ ${store.rating}</span>
+                <span>리뷰 ${store.reviews.toLocaleString()}개</span>
+                <span>${store.risk}</span>
+            </div>
+            <div class="reviews-list">
+                ${store.reviewsList.map(r => `<div class="review-preview">"${r}"</div>`).join('')}
+            </div>
+            <div class="issues">
+                ${store.issues.map(i => `<span class="issue-tag">${i}</span>`).join('')}
+            </div>
+        `;
+        card.onclick = () => {
+            map.setView([store.lat, store.lng], 17);
+            renderStoreList(filter, store.name);
+            markers[store.name].openPopup();
+        };
+        storeListEl.appendChild(card);
+    });
+}
+
+renderStoreList();
+
+document.querySelectorAll('.review-panel-tabs button').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.review-panel-tabs button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderStoreList(btn.textContent);
+    };
+});
+
+const markers = {};
+
+stores.forEach(store => {
+    const riskIcon = store.risk === '위험' ? '⚠️' : store.risk === '주의' ? '❗' : '✓';
+    const riskColor = store.risk === '위험' ? '#dc2626' : store.risk === '주의' ? '#f59e0b' : '#22c55e';
+    
+    const marker = L.marker([store.lat, store.lng], {
+        icon: L.divIcon({
+            className: 'custom-marker',
+            html: `<div style="
+                background:${riskColor};
+                width:44px;
+                height:44px;
+                border-radius:50% 50% 50% 0;
+                transform:rotate(-45deg);
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                box-shadow:0 4px 12px rgba(0,0,0,0.25);
+                border:3px solid #fff;
+            "><span style="transform:rotate(45deg);font-size:18px;">${riskIcon}</span></div>`,
+            iconSize: [44, 44],
+            iconAnchor: [22, 44]
+        })
+    }).addTo(map);
+    
+    marker.bindPopup(`
+        <div class="popup-content">
+            <h4>${store.name}</h4>
+            <div class="popup-rating">⭐ ${store.rating} · 리뷰 ${store.reviews.toLocaleString()}개</div>
+            <div class="popup-issue">⚠️ ${store.issues.join(', ')}</div>
+        </div>
+    `);
+    
+    markers[store.name] = marker;
+});
+</script>
 
 </body>
 </html>
