@@ -271,6 +271,10 @@ header p{
     font-weight:600;
 }
 
+.store-card .store-name .badge.good{
+    background:#22c55e;
+}
+
 .store-card .store-meta{
     display:flex;
     align-items:center;
@@ -697,14 +701,14 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
 }).addTo(map);
 
 const stores = [
-    {name: "홍대 본가 닭갈비", lat: 37.5598, lng: 126.9234, rating: 2.5, reviews: 23, issues: ["서비스", "위생"], review: "직원이 완전 불친절해요. 다 먹고 나갔는데 영수증도 안 줌. 위생도 별로임.", risk: "위험"},
-    {name: "명동 소고기", lat: 37.5642, lng: 126.9749, rating: 3.0, reviews: 45, issues: ["가격"], review: "가격이 너무 비싸요. 같은 가격에 다른 곳에서 훨씬 잘 먹음.", risk: "주의"},
-    {name: "이태원 브런치", lat: 37.5345, lng: 126.9654, rating: 2.0, reviews: 18, issues: ["맛", "대기"], review: "맛이 전혀 없음. 1시간 기다렸는데 이것이냐...", risk: "위험"},
-    {name: "강남 고기집", lat: 37.5174, lng: 127.0473, rating: 3.5, reviews: 32, issues: ["품절"], review: "가는데 닭갈비가 품절이라고 함. 사전에 공지 좀 해주세요.", risk: "주의"},
-    {name: "신촌 치킨", lat: 37.5599, lng: 126.9432, rating: 2.8, reviews: 56, issues: ["배달"], review: "배달이 2시간 걸렸어요. 차가운 치킨 먹음.", risk: "주의"},
-    {name: "건대 피자", lat: 37.5405, lng: 127.0693, rating: 1.5, reviews: 12, issues: ["위생", "냉방"], review: "냉방도 안 되고... 바퀴를 봤어요. 두 번 안 감.", risk: "위험"},
-    {name: "홍대路口 커피", lat: 37.5560, lng: 126.9230, rating: 4.5, reviews: 89, issues: [], review: "커피도 맛있고 분위기도 좋음. 강추!", risk: "좋음"},
-    {name: "신촌 대학생 식당", lat: 37.5595, lng: 126.9430, rating: 4.2, reviews: 156, issues: [], review: "가격도 착하고 맛도 최고입니다. 자주 방문할게요!", risk: "좋음"}
+    {name: "홍대 본가 닭갈비", lat: 37.5598, lng: 126.9234, rating: 2.5, reviews: 847, issues: ["서비스", "위생"], review: "직원이 완전 불친절해요. 다 먹고 나갔는데 영수증도 안 줌. 위생도 별로임.", risk: "위험"},
+    {name: "명동 소고기", lat: 37.5642, lng: 126.9749, rating: 3.0, reviews: 1234, issues: ["가격"], review: "가격이 너무 비싸요. 같은 가격에 다른 곳에서 훨씬 잘 먹음.", risk: "주의"},
+    {name: "이태원 브런치", lat: 37.5345, lng: 126.9654, rating: 2.0, reviews: 2156, issues: ["맛", "대기"], review: "맛이 전혀 없음. 1시간 기다렸는데 이것이냐...", risk: "위험"},
+    {name: "강남 고기집", lat: 37.5174, lng: 127.0473, rating: 3.5, reviews: 3420, issues: ["품절"], review: "가는데 닭갈비가 품절이라고 함. 사전에 공지 좀 해주세요.", risk: "주의"},
+    {name: "신촌 치킨", lat: 37.5599, lng: 126.9432, rating: 2.8, reviews: 1856, issues: ["배달"], review: "배달이 2시간 걸렸어요. 차가운 치킨 먹음.", risk: "주의"},
+    {name: "건대 피자", lat: 37.5405, lng: 127.0693, rating: 1.5, reviews: 967, issues: ["위생", "냉방"], review: "냉방도 안 되고... 바퀴를 봤어요. 두 번 안 감.", risk: "위험"},
+    {name: "홍대路口 커피", lat: 37.5560, lng: 126.9230, rating: 4.5, reviews: 156, issues: [], review: "가게가 조용해서 좋았음. 그런데 주변에 보면 더 좋은 곳 많음.", risk: "좋음"},
+    {name: "신촌 대학생 식당", lat: 37.5595, lng: 126.9430, rating: 4.2, reviews: 89, issues: [], review: "가격도 착하고 맛도 있음. 근데 이 근처 치고는 그저 그런 수준.", risk: "좋음"}
 ];
 
 const storeListEl = document.getElementById('storeList');
@@ -720,10 +724,11 @@ function renderStoreList(filter = '전체', activeStore = null) {
             <div class="store-name">
                 ${store.name}
                 ${store.risk === '위험' ? '<span class="badge">위험</span>' : ''}
+                ${store.risk === '좋음' ? '<span class="badge good">좋음</span>' : ''}
             </div>
             <div class="store-meta">
                 <span class="rating">⭐ ${store.rating}</span>
-                <span>리뷰 ${store.reviews}개</span>
+                <span>네이버 리뷰 ${store.reviews.toLocaleString()}개</span>
                 <span>${store.risk}</span>
             </div>
             <div class="review-preview">"${store.review}"</div>
@@ -781,7 +786,7 @@ stores.forEach(store => {
     marker.bindPopup(`
         <div class="popup-content">
             <h4>${store.name}</h4>
-            <div class="popup-rating">⭐ ${store.rating} · 리뷰 ${store.reviews}개</div>
+            <div class="popup-rating">⭐ ${store.rating} · 네이버 리뷰 ${store.reviews.toLocaleString()}개</div>
             <div class="popup-issue">⚠️ ${store.issues.join(', ')}</div>
             <button class="popup-btn" onclick="document.querySelector('.store-card').click()">리뷰 보기</button>
         </div>
