@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>후일담 - 진짜 리뷰만 보는 방법</title>
-
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
 
 :root {
-    --primary: #6366f1;
-    --primary-dark: #4f46e5;
-    --secondary: #f472b6;
-    --dark: #0f172a;
-    --gray: #64748b;
-    --light: #f8fafc;
+    --primary: #e94560;
+    --primary-light: #ff6b6b;
+    --dark: #0a0a0a;
+    --gray: #a0a0a0;
+    --light: #0a0a0a;
     --white: #ffffff;
-    --gradient: linear-gradient(135deg, #6366f1 0%, #f472b6 100%);
+    --gradient: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
+    --card-bg: linear-gradient(145deg, #1a1a2e, #16213e);
 }
 
 * {
@@ -25,81 +25,77 @@
 
 body{
     margin:0;
-    font-family: 'Noto Sans KR', sans-serif;
-    background:var(--light);
-    color:var(--dark);
+    font-family: 'Outfit', 'Noto Sans KR', sans-serif;
+    background:var(--dark);
+    color:var(--white);
     line-height: 1.6;
 }
 
 header{
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);
     color:white;
-    padding:100px 20px;
+    padding:120px 24px;
     text-align:center;
     position: relative;
     overflow: hidden;
 }
 
-header::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 50%);
-    animation: float 15s ease-in-out infinite;
+header::before{
+    content:'';
+    position:absolute;
+    top:-50%;
+    left:-50%;
+    width:200%;
+    height:200%;
+    background:conic-gradient(from 0deg at 50% 50%, transparent 0deg, #e94560 60deg, transparent 120deg);
+    opacity:0.15;
+    animation:rotate 20s linear infinite;
 }
 
-@keyframes float {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(-5%, 5%); }
+@keyframes rotate{
+    to{transform:rotate(360deg);}
 }
 
 header h1{
-    font-size:56px;
+    font-size:72px;
+    font-weight:800;
     margin-bottom:16px;
-    font-weight:900;
-    letter-spacing: -1px;
+    background:linear-gradient(135deg, #fff 0%, #e94560 100%);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
     position: relative;
 }
 
-header h1 span {
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
 header p{
-    font-size:20px;
-    opacity:0.85;
+    font-size:24px;
+    color:#a0a0a0;
     max-width:600px;
-    margin:0 auto 30px;
+    margin:0 auto 20px;
     font-weight:400;
 }
 
 .cta{
-    margin-top:25px;
+    margin-top:40px;
     position: relative;
 }
 
 button{
-    padding:16px 40px;
+    padding:18px 42px;
     font-size:18px;
     border:none;
-    border-radius:50px;
-    background:var(--gradient);
+    border-radius:12px;
+    background:linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
     color:white;
-    cursor:pointer;
     font-weight:700;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(99,102,241,0.4);
+    cursor:pointer;
+    transition:transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 20px rgba(233,69,96,0.4);
 }
 
 button:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(99,102,241,0.5);
+    transform:translateY(-4px);
+    box-shadow:0 20px 40px rgba(233,69,96,0.4);
 }
 
 section{
@@ -109,51 +105,63 @@ section{
 }
 
 section h2{
-    font-size:36px;
+    font-size:42px;
+    font-weight:700;
     text-align:center;
     margin-bottom:50px;
-    font-weight:800;
-    color:var(--dark);
+    position:relative;
+    color:#fff;
+}
+
+section h2::after{
+    content:'';
+    display:block;
+    width:60px;
+    height:4px;
+    background:linear-gradient(135deg, #e94560, #ff6b6b);
+    margin:16px auto 0;
+    border-radius:2px;
 }
 
 .features{
     display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
-    gap:28px;
+    grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
+    gap:24px;
 }
 
 .card{
-    background:var(--white);
+    background:var(--card-bg);
     padding:36px;
     border-radius:20px;
-    box-shadow:0 4px 24px rgba(0,0,0,0.06);
-    transition: all 0.3s ease;
-    border: 1px solid rgba(0,0,0,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    transition:transform 0.3s, border-color 0.3s;
 }
 
 .card:hover{
-    transform: translateY(-8px);
-    box-shadow:0 12px 40px rgba(99,102,241,0.15);
+    transform:translateY(-8px);
+    border-color:#e94560;
 }
 
 .card h3{
     margin:0 0 14px;
-    font-size:20px;
-    font-weight:700;
+    font-size:22px;
+    font-weight:600;
     display: flex;
     align-items: center;
     gap: 10px;
+    color:#fff;
 }
 
 .card p{
-    color:var(--gray);
-    font-size:15px;
+    color:#a0a0a0;
+    font-size:16px;
     margin:0;
     line-height: 1.7;
 }
 
 .how{
     text-align:center;
+    background:linear-gradient(180deg, #0a0a0a 0%, #12121f 100%);
 }
 
 .steps{
@@ -167,38 +175,43 @@ section h2{
 .step{
     width:240px;
     text-align:center;
+    padding:32px;
+    background:var(--card-bg);
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,0.08);
 }
 
 .step-num{
-    width:60px;
-    height:60px;
-    background:var(--gradient);
+    width:48px;
+    height:48px;
+    background:linear-gradient(135deg, #e94560, #ff6b6b);
     border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
     margin:0 auto 20px;
-    font-size:24px;
-    font-weight:900;
+    font-size:20px;
+    font-weight:700;
     color:white;
 }
 
 .step h3{
-    font-size:18px;
+    font-size:20px;
     margin-bottom:10px;
-    font-weight:700;
+    font-weight:600;
+    color:#fff;
 }
 
 .step p{
-    color:var(--gray);
+    color:#a0a0a0;
     font-size:14px;
 }
 
 footer{
     text-align:center;
-    padding:40px;
-    background:var(--dark);
-    color:white;
+    padding:48px;
+    background:#050508;
+    color:#606060;
     font-size:14px;
 }
 
@@ -209,13 +222,20 @@ footer a{
 
 .badge {
     display: inline-block;
-    background: rgba(99,102,241,0.1);
-    color: var(--primary);
-    padding: 6px 14px;
+    background: rgba(233,69,96,0.15);
+    color: #e94560;
+    padding: 8px 18px;
     border-radius: 20px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     margin-bottom: 16px;
+}
+
+@media (max-width:768px){
+    header h1{font-size:42px;}
+    header p{font-size:18px;}
+    section h2{font-size:28px;}
+    header{padding:80px 20px;}
 }
 </style>
 
@@ -224,7 +244,7 @@ footer a{
 <body>
 
 <header>
-    <h1><span>후일담</span></h1>
+    <h1>후일담</h1>
     <p>광고 리뷰 말고,<br>진짜 불만 리뷰만 모아보세요.</p>
 
     <div class="cta">
