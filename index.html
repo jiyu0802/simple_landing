@@ -6,66 +6,150 @@
 <title>ReviewScope - 진짜 리뷰만 보는 방법</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary: #f472b6;
+    --dark: #0f172a;
+    --gray: #64748b;
+    --light: #f8fafc;
+    --white: #ffffff;
+    --gradient: linear-gradient(135deg, #6366f1 0%, #f472b6 100%);
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body{
     margin:0;
-    font-family: Arial, sans-serif;
-    background:#f8f9fb;
-    color:#333;
+    font-family: 'Noto Sans KR', sans-serif;
+    background:var(--light);
+    color:var(--dark);
+    line-height: 1.6;
 }
 
 header{
-    background:#4f6df5;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     color:white;
-    padding:60px 20px;
+    padding:100px 20px;
     text-align:center;
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 50%);
+    animation: float 15s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-5%, 5%); }
 }
 
 header h1{
-    font-size:42px;
-    margin-bottom:10px;
+    font-size:56px;
+    margin-bottom:16px;
+    font-weight:900;
+    letter-spacing: -1px;
+    position: relative;
+}
+
+header h1 span {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 header p{
-    font-size:18px;
-    opacity:0.9;
+    font-size:20px;
+    opacity:0.85;
+    max-width:600px;
+    margin:0 auto 30px;
+    font-weight:400;
 }
 
 .cta{
     margin-top:25px;
+    position: relative;
 }
 
 button{
-    padding:12px 24px;
-    font-size:16px;
+    padding:16px 40px;
+    font-size:18px;
     border:none;
-    border-radius:6px;
-    background:white;
-    color:#4f6df5;
+    border-radius:50px;
+    background:var(--gradient);
+    color:white;
     cursor:pointer;
-    font-weight:bold;
+    font-weight:700;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(99,102,241,0.4);
+}
+
+button:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(99,102,241,0.5);
 }
 
 section{
-    max-width:1000px;
+    max-width:1100px;
     margin:auto;
-    padding:60px 20px;
+    padding:80px 24px;
+}
+
+section h2{
+    font-size:36px;
+    text-align:center;
+    margin-bottom:50px;
+    font-weight:800;
+    color:var(--dark);
 }
 
 .features{
     display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
-    gap:20px;
+    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:28px;
 }
 
 .card{
-    background:white;
-    padding:25px;
-    border-radius:10px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+    background:var(--white);
+    padding:36px;
+    border-radius:20px;
+    box-shadow:0 4px 24px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+.card:hover{
+    transform: translateY(-8px);
+    box-shadow:0 12px 40px rgba(99,102,241,0.15);
 }
 
 .card h3{
-    margin-top:0;
+    margin:0 0 14px;
+    font-size:20px;
+    font-weight:700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card p{
+    color:var(--gray);
+    font-size:15px;
+    margin:0;
+    line-height: 1.7;
 }
 
 .how{
@@ -76,19 +160,62 @@ section{
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
-    gap:30px;
+    gap:40px;
     margin-top:30px;
 }
 
 .step{
-    width:220px;
+    width:240px;
+    text-align:center;
+}
+
+.step-num{
+    width:60px;
+    height:60px;
+    background:var(--gradient);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 20px;
+    font-size:24px;
+    font-weight:900;
+    color:white;
+}
+
+.step h3{
+    font-size:18px;
+    margin-bottom:10px;
+    font-weight:700;
+}
+
+.step p{
+    color:var(--gray);
+    font-size:14px;
 }
 
 footer{
     text-align:center;
-    padding:30px;
-    background:#eee;
+    padding:40px;
+    background:var(--dark);
+    color:white;
     font-size:14px;
+}
+
+footer a{
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.badge {
+    display: inline-block;
+    background: rgba(99,102,241,0.1);
+    color: var(--primary);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
 }
 </style>
 
@@ -97,8 +224,8 @@ footer{
 <body>
 
 <header>
-    <h1>ReviewScope</h1>
-    <p>광고 리뷰 말고, 진짜 불만 리뷰만 모아보세요.</p>
+    <h1><span>ReviewScope</span></h1>
+    <p>광고 리뷰 말고,<br>진짜 불만 리뷰만 모아보세요.</p>
 
     <div class="cta">
         <button>지금 시작하기</button>
@@ -139,17 +266,20 @@ footer{
     <div class="steps">
 
         <div class="step">
-            <h3>1️⃣ 가게 검색</h3>
+            <div class="step-num">1</div>
+            <h3>가게 검색</h3>
             <p>원하는 식당이나 매장을 검색합니다.</p>
         </div>
 
         <div class="step">
-            <h3>2️⃣ 부정 리뷰 확인</h3>
+            <div class="step-num">2</div>
+            <h3>부정 리뷰 확인</h3>
             <p>AI가 정리한 핵심 불만 리뷰를 확인합니다.</p>
         </div>
 
         <div class="step">
-            <h3>3️⃣ 현명한 선택</h3>
+            <div class="step-num">3</div>
+            <h3>현명한 선택</h3>
             <p>실제 문제점을 알고 방문 여부를 결정하세요.</p>
         </div>
 
@@ -157,12 +287,13 @@ footer{
 </section>
 
 <section style="text-align:center;">
-    <h2>지금 ReviewScope를 경험해보세요</h2>
+    <span class="badge">지금 바로 시작하세요</span>
+    <h2>ReviewScope를 경험해보세요</h2>
     <button>베타 신청하기</button>
 </section>
 
 <footer>
-    © 2026 ReviewScope. All rights reserved.
+    <p>© 2026 ReviewScope. All rights reserved.</p>
 </footer>
 
 </body>
