@@ -406,10 +406,46 @@ section h2{
 
 footer{
     text-align:center;
-    padding:40px;
-    background:var(--gray-50);
-    color:var(--gray-500);
+    padding:60px 40px;
+    background:linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%);
+    color:var(--gray-700);
     font-size:14px;
+}
+
+footer .footer-cta{
+    margin-bottom:32px;
+}
+
+footer .footer-cta h3{
+    font-size:24px;
+    font-weight:700;
+    color:var(--gray-900);
+    margin-bottom:12px;
+}
+
+footer .footer-cta p{
+    color:var(--gray-500);
+    margin-bottom:24px;
+}
+
+footer .footer-btn{
+    display:inline-block;
+    padding:14px 32px;
+    background:var(--primary);
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.2s;
+    text-decoration:none;
+}
+
+footer .footer-btn:hover{
+    background:var(--primary-dark);
+    transform:translateY(-2px);
+    box-shadow:0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
 .leaflet-container{
@@ -633,6 +669,11 @@ footer{
 </section>
 
 <footer>
+    <div class="footer-cta">
+        <h3>지금 바로 시작하세요</h3>
+        <p>후일담과 함께 현명한 선택을</p>
+        <a href="https://forms.gle/KnWyZCjEpoiUvGSu6" class="footer-btn" target="_blank">사전신청하기</a>
+    </div>
     <p>© 2026 후일담. All rights reserved.</p>
 </footer>
 
