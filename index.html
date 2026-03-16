@@ -74,21 +74,24 @@ nav .nav-links a:hover{
     color:var(--primary);
 }
 
-nav .nav-btn{
-    padding:10px 20px;
+nav .nav-btn, a.nav-btn{
+    display:inline-block;
+    padding:12px 24px;
     background:var(--primary);
     color:#fff;
     border:none;
     border-radius:8px;
-    font-size:14px;
+    font-size:15px;
     font-weight:600;
     cursor:pointer;
     transition:all 0.2s;
+    text-decoration:none;
 }
 
-nav .nav-btn:hover{
+nav .nav-btn:hover, a.nav-btn:hover{
     background:var(--primary-dark);
-    transform:translateY(-1px);
+    transform:translateY(-2px);
+    box-shadow:0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
 header{
