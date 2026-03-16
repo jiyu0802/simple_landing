@@ -3,15 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>후일담 - 실패를 줄이는 지도 리뷰 플랫폼</title>
-
+<title>후일담 - 실패를 줄이는 지도 리뷰</title>
+<link href="https://fonts.googleapis.com/css2?family=SUIT:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
 
-body{
-margin:0;
-font-family: "Pretendard", Arial;
-background:#f7f8fc;
-color:#333;
+:root {
+    --primary: #2563eb;
+    --primary-light: #3b82f6;
+    --primary-dark: #1d4ed8;
+    --black: #111827;
+    --gray-900: #1f2937;
+    --gray-700: #374151;
+    --gray-500: #6b7280;
+    --gray-300: #d1d5db;
+    --gray-100: #f3f4f6;
+    --gray-50: #f9fafb;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body{
@@ -587,27 +601,32 @@ footer .footer-btn:hover{
     section{padding:40px 20px;}
     .features{grid-template-columns:1fr;}
     .stats{grid-template-columns:1fr;}
-    header{padding:60px 20px 40px;}
-    header h1{font-size:32px;}
-    section{padding:40px 20px;}
-    .features{grid-template-columns:1fr;}
-    .stats{grid-template-columns:1fr;}
 }
 </style>
+
 </head>
 
 <body>
 
+<nav>
+    <div class="logo">후일담</div>
+    <div class="nav-links">
+        <a href="#">서비스 소개</a>
+        <a href="#">이용 방법</a>
+        <a href="#">베타 신청</a>
+    </div>
+    </div>
+    <button class="nav-btn" onclick="window.open('https://forms.gle/KnWyZCjEpoiUvGSu6', '_blank')">사전신청</button>
+</nav>
+
 <header>
-
-<h1>후일담</h1>
-<p>실패를 줄이는 지도 리뷰 플랫폼</p>
-<p>광고 리뷰에 속지 않고, 진짜 경험을 확인하세요.</p>
-
-<div class="cta">
-<button>베타 서비스 신청</button>
-</div>
-
+    <h1>실패하지 않는<br><span>선택의 힘</span></h1>
+    <p>광고 리뷰에 속지 마세요. 진짜 경험을 확인하세요.</p>
+    
+    <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="식당, 카페, 맛집을 검색하세요">
+    </div>
 </header>
 
 <section id="map-section">
@@ -671,9 +690,12 @@ footer .footer-btn:hover{
 </section>
 
 <footer>
-
-<p>© 2026 후일담 | 실패를 줄이는 지도 리뷰 플랫폼</p>
-
+    <div class="footer-cta">
+        <h3>지금 바로 시작하세요</h3>
+        <p>후일담과 함께 현명한 선택을</p>
+        <a href="https://forms.gle/KnWyZCjEpoiUvGSu6" class="footer-btn" target="_blank">사전신청하기</a>
+    </div>
+    <p>© 2026 후일담. All rights reserved.</p>
 </footer>
 
 <script>
